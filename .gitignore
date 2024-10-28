@@ -1,0 +1,26 @@
+# Ignore log files
+*.log
+logs/
+log/
+
+# Ignore build directories
+bin/
+obj/
+
+# Ignore Visual Studio files
+.vs/
+*.user
+*.suo
+
+# Ignore Visual Studio Code files
+.vscode/
+
+# Ignore debug files
+*.pdb
+
+# Ignore other temporary files
+*.cache
+*.tmp
+.DS_Store
+Thumbs.db
+ 
