@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <meta name="author" content="WNC.G13">
+    <meta name="description" content="Project Management">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/AuthStyle.css">
+    <script src="~/js/AuthLoginValidate.js"></script>
+</head>
+<body>
+    <header id="mainheader">  
+        <nav>  
+            <ul>  
+                <li><img src="~/image-svgrepo-com.svg" width="60px" height="60px" alt="Logo"></li>  
+                <li><h1>Logo</h1></li>  
+            </ul>  
+        </nav>  
+    </header>  
+    
+<div class="mainCenter">  
+    <aside id="leftCenter">  
+        <img src="~/image-svgrepo-com.svg" width="70%" height="70%" alt="Illustration">  
+    </aside>  
+    
+    <main id="rightCenter">  
+        <h1 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Welcome back 👋</h1>  
+        <h4>Log in to your account</h4>  
+        <form id="loginForm" asp-action="Login" asp-controller="Auth" method="post" class="inline">  
+              <div class="form-group custom-input">
+                                <div class="icon-email"></div>
+                                <input type="email" title="Email" class="form-control input-txt" name="email" placeholder="Email" required>
+                                </div>
+                            <div class="form-group custom-input">
+                                <div class="icon-pass"></div>
+                                <input type="password" title="Password" class="form-control input-txt" name="password" placeholder="Password" required>
+                            </div> <br><br>
+                            <button type="submit">Log In</button>  <br/>
+                @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                {
+                    <p style="color: red;">@ViewBag.ErrorMessage</p>
+                }
+        </form> 
+        <p style="text-align: center;"><i>Don't have account? <a href="@Url.Action("Register", "Auth")"><u style="color: rgb(5, 128, 243);">SignUp</u></a></i></p>
+    </main>  
+</div>
+
+</body>
+</html>

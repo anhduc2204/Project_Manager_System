@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using BTL_LTWeb.Models;
+using BTL_LTWeb.Models.Service.IRepository;
+using BTL_LTWeb.Models.Service.Repository;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +11,22 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme; 
+    })
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Auth/Login"; 
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        options.SlidingExpiration = true;
+    });
+
 
 // Thêm dịch vụ session
 builder.Services.AddSession(options =>
@@ -27,6 +46,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

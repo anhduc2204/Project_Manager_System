@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BTL_LTWeb.Models.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace BTL_LTWeb.Models
@@ -59,6 +60,38 @@ namespace BTL_LTWeb.Models
 
             modelBuilder.Entity<UserRole>()
                 .HasKey(ur => new { ur.UserId, ur.RoleId });
+
+            var adminRoleId = Guid.NewGuid();
+            var adminId = Guid.NewGuid();
+            var admin = new User()
+            {
+                Id = adminId, FullName = "Administrator", Email = "admin@fithou.com",Address = "Khoa CNTT", PhoneNumber ="0123456789" ,CreatedAt = DateTime.UtcNow
+            };
+
+            admin.PasswordHash = Helper.GenaratePassword.HashPassword(admin, "Admin1234@");
+            
+
+            modelBuilder.Entity<Role>().HasData(
+                new Role()
+                {
+                    Id = Guid.NewGuid(), Priority = 0, Name = RoleName.User, NormalizedName = RoleName.User.ToUpper()
+                },
+                new Role()
+                {
+                    Id = adminRoleId, Priority = 9999, Name = RoleName.Admin, NormalizedName = RoleName.Admin.ToUpper()
+                }
+            );
+
+            modelBuilder.Entity<User>().HasData(admin);
+
+            modelBuilder.Entity<UserRole>().HasData(
+                new UserRole()
+                {
+                    UserId = adminId,
+                    RoleId = adminRoleId
+                }
+                );
+
 
             // Thêm các cấu hình khác cho mô hình của bạn tại đây...
         }
