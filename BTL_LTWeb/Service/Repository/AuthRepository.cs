@@ -78,8 +78,8 @@ public class AuthRepository : IAuthRepository
         
         
 
-        _context.Users.Add(user);
-        _context.UserRoles.Add(userRole);
+        await _context.Users.AddAsync(user);
+        await _context.UserRoles.AddAsync(userRole);
         var result = await _context.SaveChangesAsync();
         return result > 0;
     }

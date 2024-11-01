@@ -12,7 +12,7 @@ namespace BTL_LTWeb.Models
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        public Guid OrganizationId { get; set; }
+        public Guid? OrganizationId { get; set; } = null;
 
         [Required]
         [MaxLength(255)]
@@ -25,8 +25,7 @@ namespace BTL_LTWeb.Models
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public int Status { get; set; }
 
-        [ForeignKey("OrganizationId")]
-        public virtual Organization Organization { get; set; }
+        [ForeignKey("OrganizationId")] public virtual Organization? Organization { get; set; } = null;
 
         [ForeignKey("CreatedBy")]
         public virtual User CreatedByUser { get; set; }

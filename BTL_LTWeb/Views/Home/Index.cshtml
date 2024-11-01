@@ -1,8 +1,141 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Manager</title>
+    <link rel="stylesheet" href="css/Index.css">
+    <script src="~/js/Project.js"></script>
+</head>
+<body>
+    <aside>
+        <h1 class="projects-header">Projects</h1>
+        <div class="projects-section">
+            <nav>
+                @* <a href="#" class="project-link active"> *@
+                @*     <img src="image-svgrepo-com.svg" alt="" class="project-icon"> *@
+                @*     Project1 *@
+                @* </a> *@
+            </nav>
+        </div>
+        <div class="inbox-section">
+            <a href="#" class="project-link">
+                <img src="images/comment-regular.svg" alt="" class="project-icon">
+                Inbox
+            </a>
+        </div>
+    </aside>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<main>
+    <div class="header" id="header">
+        <div class="header-actions">
+            <button class="btn btn-primary" onclick="openModal()">+ Add Project</button>
+            <img src="images/bell-regular.svg" alt="Notifications" style="cursor: pointer;" width="25px" height="25px">
+            <img src="images/circle-user-solid.svg" alt="Profile" style="cursor: pointer;" width="25px" height="25px">
+            <a href="@Url.Action("Logout","Auth")"><img src="images/right-from-bracket-solid.svg" alt="SignOut" style="cursor: pointer;" width="25px" height="25px"></a>
+        </div>
+    </div>
+
+    <div class="project-info" id="mainContent">
+        <h2 class="project">Project Name</h2>
+        <div class="project-details">
+            <p>PM: User</p>
+            <p>Description: ......</p>
+        </div>
+        
+       
+            <div class="modifyProject">
+                <button class="btn-backlog">Backlog</button>
+                <button class="btn-update" type="button">
+                    Update
+                </button>
+                <button id="btn-delete-project" class="btn-delete" type="button">Delete</button>
+            </div>
+
+        <br>
+
+        <div class="members-section">
+            <div class="members-header">
+                <h3>Member:</h3>
+                <button class="btn btn-primary">+ Add member</button>
+            </div>
+
+            <div class="member-list" id="memberList">
+                <!-- Members will be added here dynamically -->
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<div id="modal" class="modal-overlay" style="display: none;">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 class="modal-title">Project Details</h2>
+            <button class="close-button" onclick="closeModal()">&times;</button>
+        </div>
+        <form id="projectForm" onsubmit="handleSubmit(event)">
+            <div class="form-group">
+                <label for="projectName">Project Name:</label>
+                <input 
+                    type="text" 
+                    id="projectName" 
+                    name="projectName" 
+                    placeholder="Input text"
+                    required
+                >
+            </div>
+                
+
+            @* <div class="form-row"> *@
+            @*     <div class="form-group" style="flex: 1;"> *@
+            @*         <label for="startDate">Start Date:</label> *@
+            @*         <input  *@
+            @*             type="date"  *@
+            @*             id="startDate"  *@
+            @*             name="startDate" *@
+            @*             required *@
+            @*         > *@
+            @*     </div> *@
+            @*     <div class="form-group" style="flex: 1;"> *@
+            @*         <label for="endDate">End Date:</label> *@
+            @*         <input  *@
+            @*             type="date"  *@
+            @*             id="endDate"  *@
+            @*             name="endDate" *@
+            @*             required *@
+            @*         > *@
+            @*     </div> *@
+            @* </div> *@
+
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select id="status" name="status" required>
+                    <option value="0">Not Start</option>     
+                    <option value="1">On Progress</option>    
+                    <option value="2">Completed</option>      
+                    <option value="-1">Cancelled</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea 
+                        id="description" 
+                        name="description" 
+                        placeholder="Input text"
+                    ></textarea>
+            </div>
+
+            <button type="button" onclick="createProject()" class="save-button">Save</button>
+        </form>
+    </div>
 </div>
+
+<script >
+   
+</script>
+
+</body>
+</html>
